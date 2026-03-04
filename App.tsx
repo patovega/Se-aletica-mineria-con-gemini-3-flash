@@ -62,7 +62,14 @@ const App: React.FC = () => {
 
   const handleGenerate = async () => {
     setIsLoading(true);
-    const viewDescription = signData.viewType === ViewType.FRONTAL ? 'front view' : 'side profile view';
+    let viewDescription = 'side profile view';
+    if (signData.viewType === ViewType.FRONTAL) {
+      viewDescription = 'front view';
+    } else if (signData.viewType === ViewType.CENITAL) {
+      viewDescription = 'top-down bird\'s eye view perspective';
+    } else if (signData.viewType === ViewType.CONTRAPICADO) {
+      viewDescription = 'worm\'s eye view perspective from below, low angle';
+    }
     
     // Prompt enriquecido con el modelo del vehículo si existe
     const elementLabel = signData.vehicleModel 
@@ -197,24 +204,22 @@ const App: React.FC = () => {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-xs font-bold text-slate-500 uppercase mb-2 tracking-wider">Perspectiva</label>
-                    <div className="flex gap-2">
-                      {Object.values(ViewType).map((view) => (
-                        <button
-                          key={view}
-                          onClick={() => handleUpdate({ viewType: view })}
-                          className={`flex-1 py-3 rounded-lg font-bold text-xs transition-all border ${
-                            signData.viewType === view 
-                              ? 'bg-slate-900 text-white border-slate-900 shadow-md' 
-                              : 'bg-white text-black border-slate-200 hover:border-slate-400 shadow-sm'
-                          }`}
-                        >
-                          {view}
-                        </button>
-                      ))}
-                    </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase mb-2 tracking-wider">Perspectiva del Pictograma</label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {Object.values(ViewType).map((view) => (
+                      <button
+                        key={view}
+                        onClick={() => handleUpdate({ viewType: view })}
+                        className={`py-3 rounded-lg font-bold text-[10px] transition-all border ${
+                          signData.viewType === view 
+                            ? 'bg-slate-900 text-white border-slate-900 shadow-md' 
+                            : 'bg-white text-black border-slate-200 hover:border-slate-400 shadow-sm'
+                        }`}
+                      >
+                        {view}
+                      </button>
+                    ))}
                   </div>
                 </div>
 

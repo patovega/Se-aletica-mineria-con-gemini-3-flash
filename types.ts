@@ -11,7 +11,9 @@ export enum RiskCategory {
 
 export enum ViewType {
   LATERAL = 'Lateral (Perfil)',
-  FRONTAL = 'Frontal'
+  FRONTAL = 'Frontal',
+  CENITAL = 'Vista Cenital',
+  CONTRAPICADO = 'Contrapicado'
 }
 
 export const SUB_RISKS: Record<RiskCategory, string[]> = {
